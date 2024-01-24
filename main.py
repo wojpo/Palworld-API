@@ -97,8 +97,10 @@ async def root():
                 "Drop 1": f'{paldrop1}',
                 "Drop 2": f'{paldrop2}',
                 "Drop 3": f'{paldrop3}',
-                "Food Need": f'{foodneed}'
-
+                "Food Need": f'{foodneed}',
+                "Partner Skill": f'',
+                "Work Suitability": f'',
+                "Paldeck Entry": f'',
 
             }
 
