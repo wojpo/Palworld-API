@@ -15,16 +15,16 @@ async def root():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
     }
     response = requests.get(url, headers=headers)
-    print((response.status_code))
+
     if response.status_code == 200:
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
 
         PalStats = soup.find_all('div', class_='pi-data-value pi-font')
         PalFood = soup.find_all('img',class_='wsgray lazyload')
-        print(PalFood)
 
-        print(PalStats[3])
+
+
         palelement1 = ''
         palelement2 = ''
         palelements = []
@@ -39,7 +39,7 @@ async def root():
 
         for PalElement in PalStats[1]:
             palelements.append(PalElement.text)
-            print(palelements)
+
 
         try:
             if len(palelements[0]) > 1:
@@ -57,7 +57,7 @@ async def root():
 
         for PalDrops in PalStats[2]:
             paldrops.append(PalDrops.text)
-            print(paldrops)
+
 
         try:
             if len(paldrops[0]) > 1:
@@ -83,7 +83,6 @@ async def root():
             paldrop3 = None
 
         for Palfood in PalFood:
-            print(Palfood)
             foodneed -= 1
 
 
