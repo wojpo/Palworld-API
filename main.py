@@ -5,11 +5,10 @@ import requests
 app = FastAPI()
 
 
-@app.get("/Pal")
-async def root():
+@app.get("/Pal='{Pal}'")
+async def root(Pal: str):
     global PalNumber, PalElement, PalDrops, paldrop1, paldrop2
-    url = f'https://palworld.fandom.com/wiki/Univolt'
-    url = url.replace(" ", "+")
+    url = f'https://palworld.fandom.com/wiki/{Pal}'
     print(url)
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
@@ -32,7 +31,7 @@ async def root():
         paldrop2 = ''
         paldrop3 = ''
         paldrops = []
-        foodneed=10
+        foodneed= 10
 
         for PalNumber in PalStats[0]:
             print(PalNumber.text)
@@ -89,7 +88,7 @@ async def root():
 
 
         return {
-                "Name": f'',
+                "Name": f'{Pal}',
                 "PalNumber": f"{PalNumber.text}",
                 "Element 1": f'{palelement1}',
                 "Element 2": f'{palelement2}',
