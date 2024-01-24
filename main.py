@@ -89,7 +89,8 @@ async def root(Pal: str):
 
         return {
                 "Name": f'{Pal}',
-                "PalNumber": f"{PalNumber.text}",
+                "Paldeck Number": f"{PalNumber.text}",
+                "Paldeck Entry": f'',
                 "Element 1": f'{palelement1}',
                 "Element 2": f'{palelement2}',
                 "Drop 1": f'{paldrop1}',
@@ -98,7 +99,6 @@ async def root(Pal: str):
                 "Food Need": f'{foodneed}',
                 "Partner Skill": f'',
                 "Work Suitability": f'',
-                "Paldeck Entry": f'',
 
             }
 
