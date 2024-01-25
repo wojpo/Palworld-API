@@ -37,6 +37,9 @@ async def root(Pal: str):
         for descript in PalDescriptions:
             PalDescriptionsList.append(descript)
 
+        print('------------')
+        print(PalDescriptionsList[111])
+
         print(PalDescriptionsList)
         for PalNumber in PalStats[0]:
             print('++++++++++++++++++++')
