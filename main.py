@@ -34,7 +34,7 @@ async def root(Pal: str):
         foodneed= 10
 
         for PalNumber in PalStats[0]:
-            print(PalNumber.text)
+            PalNumber.text = PalNumber.text
 
         for PalElement in PalStats[1]:
             palelements.append(PalElement.text)
