@@ -21,8 +21,8 @@ async def root(Pal: str):
 
         PalStats = soup.find_all('div', class_='pi-data-value pi-font')
         PalFood = soup.find_all('img',class_='wsgray lazyload')
-
-
+        PalDescriptions = soup.find_all('div', class_='mw-parser-output')
+        print(PalDescriptions)
 
         palelement1 = ''
         palelement2 = ''
