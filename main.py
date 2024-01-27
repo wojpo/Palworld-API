@@ -1,5 +1,4 @@
-
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
@@ -8,6 +7,10 @@ import json
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 @app.get("/paldeckUpdate")
 async def root():
