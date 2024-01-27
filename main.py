@@ -1,5 +1,6 @@
 import random
 
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
@@ -9,6 +10,43 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
+
+@app.get("/paldeckUpdate")
+async def root():
+    url = f'https://www.gameleap.com/articles/every-pal-in-palworld-a-complete-paldeck-list'
+    print(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    }
+    response = requests.get(url, headers=headers)
+    u = 1
+    pallist = []
+    if response.status_code == 200:
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        paldeck = soup.find_all('strong')
+        while u < 650:
+            for paldecklist in paldeck[u]:
+                print(paldecklist.text)
+                pallist.append(paldecklist.text)
+            u += 6
+        print(pallist)
+        file_path = 'PalList.json'
+        with open(file_path, 'w') as json_file:
+            json.dump(pallist, json_file)
+
+
+
+@app.get("/PalList")
+async def root():
+    file_path = 'PalList.json'
+    with open(file_path, 'r') as json_file:
+        PalList = json.load(json_file)
+    print(PalList)
 file_path = 'PalList.json'
 with open(file_path, 'r') as json_file:
     PalList = json.load(json_file)
@@ -261,3 +299,11 @@ async def root(Pal: str):
             }
 
         }
+
+
+
+
+
+
+
+
