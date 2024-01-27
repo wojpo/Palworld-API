@@ -1,25 +1,48 @@
-
+import random
 
 from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
 import json
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 app = FastAPI()
 
-
-
+file_path = 'PalList.json'
+with open(file_path, 'r') as json_file:
+    PalList = json.load(json_file)
 
 
 @app.get("/PalList")
 async def root():
-    file_path = 'PalList.json'
-    with open(file_path, 'r') as json_file:
-        PalList = json.load(json_file)
     return {
         'PalList': f'{PalList}'
     }
+
+
+
+
+
+def RandomPal():
+    global RandomedPal
+    RandomedPal = random.choice(PalList)
+
+
+RandomPal()
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(RandomPal, 'interval', hours=24)
+scheduler.start()
+
+
+@app.get("/RandomPal")
+async def root():
+    return {
+        "Pal": f"{RandomedPal}"
+    }
+
+
 @app.get("/Pal='{Pal}'")
 async def root(Pal: str):
     global PalNumber, PalElement, PalDrops, paldrop1, paldrop2, PalAppereance, Palwyglond, DeckEntry, Palzahowanie, PartnerSkill, PartnerSkillDesc, kindling, planting, handiwork, lumbering, medicine, transporting, watering, electricity, gathering, mining, cooling, farming
@@ -238,11 +261,3 @@ async def root(Pal: str):
             }
 
         }
-
-
-
-
-
-
-
-
