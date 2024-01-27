@@ -1,15 +1,12 @@
+
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from bs4 import BeautifulSoup
 import requests
 import json
 
-app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['*']
-)
+app = FastAPI()
 
 
 @app.get("/paldeckUpdate")
@@ -36,15 +33,12 @@ async def root():
         with open(file_path, 'w') as json_file:
             json.dump(pallist, json_file)
 
-
 @app.get("/PalList")
 async def root():
     file_path = 'PalList.json'
     with open(file_path, 'r') as json_file:
         PalList = json.load(json_file)
     print(PalList)
-
-
 @app.get("/Pal='{Pal}'")
 async def root(Pal: str):
     global PalNumber, PalElement, PalDrops, paldrop1, paldrop2, PalAppereance, Palwyglond, DeckEntry, Palzahowanie, PartnerSkill, PartnerSkillDesc, kindling, planting, handiwork, lumbering, medicine, transporting, watering, electricity, gathering, mining, cooling, farming
@@ -263,3 +257,11 @@ async def root(Pal: str):
             }
 
         }
+
+
+
+
+
+
+
+
