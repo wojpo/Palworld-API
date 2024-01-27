@@ -3,3 +3,4 @@ hypercorn==0.14.4
 
 beautifulsoup4==4.12.3
 requests==2.31.0
+APScheduler==3.10.4
