@@ -265,7 +265,9 @@ async def root(Pal: str):
             }
 
         }
-
+    else:
+        response.status_code = 404
+        return response
 
 
 
