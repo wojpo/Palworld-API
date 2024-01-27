@@ -265,8 +265,7 @@ async def root(Pal: str):
             }
 
         }
-    else:
-        raise HTTPException(status_code=404)
+
 
 
 
