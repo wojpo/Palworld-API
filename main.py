@@ -53,7 +53,6 @@ async def root():
 async def root(Pal: str):
     global PalNumber, PalElement, PalDrops, paldrop1, paldrop2, PalAppereance, Palwyglond, DeckEntry, Palzahowanie, PartnerSkill, PartnerSkillDesc, kindling, planting, handiwork, lumbering, medicine, transporting, watering, electricity, gathering, mining, cooling, farming
     url = f'https://palworld.fandom.com/wiki/{Pal}'
-    print(url)
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
     }
@@ -69,7 +68,6 @@ async def root(Pal: str):
         PalEntryDeck = soup.find_all('div', class_='decktext')
         PalSkillDesc = soup.find_all('div',
                                      class_='pi-smart-data-value pi-data-value pi-font pi-item-spacing pi-border-color')
-        print(PalSkillDesc)
 
         palelement1 = ''
         palelement2 = ''
@@ -82,9 +80,9 @@ async def root(Pal: str):
         foodneed = 10
 
         for PartnerSkill in PalStats[4]:
-            print(PartnerSkill.text)
+            continue
         for PartnerSkillDesc in PalSkillDesc[1]:
-            print(PartnerSkillDesc.text)
+            continue
         for kindling in PalSkillDesc[2]:
             kindling = kindling.text
             kindling = str(kindling)
@@ -171,14 +169,14 @@ async def root(Pal: str):
                 farming = '0'
 
         for DeckEntry in PalEntryDeck:
-            print(DeckEntry.text)
+            continue
         for PalAppereance in ppal[5]:
             Palwyglond = PalAppereance.text
             Palwyglond = str(Palwyglond)
             Palwyglond = Palwyglond.replace('\n', '')
 
         for PalNumber in PalStats[0]:
-            print(PalNumber.text)
+            continue
 
         for PalElement in PalStats[1]:
             palelements.append(PalElement.text)
