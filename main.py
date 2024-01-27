@@ -39,7 +39,7 @@ async def root():
     with open(file_path, 'r') as json_file:
         PalList = json.load(json_file)
     return {
-        {PalList}
+        'PalList': '{PalList}'
     }
 @app.get("/Pal='{Pal}'")
 async def root(Pal: str):
