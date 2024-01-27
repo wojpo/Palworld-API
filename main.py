@@ -37,6 +37,7 @@ async def root():
             json.dump(pallist, json_file)
 
 
+
 @app.get("/PalList")
 async def root():
     file_path = 'PalList.json'
