@@ -1,8 +1,37 @@
+
+
 from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
+import json
+
 
 app = FastAPI()
+
+
+@app.get("/paldeckUpdate")
+async def root():
+    url = f'https://www.gameleap.com/articles/every-pal-in-palworld-a-complete-paldeck-list'
+    print(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    }
+    response = requests.get(url, headers=headers)
+    u = 1
+    pallist = []
+    if response.status_code == 200:
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        paldeck = soup.find_all('strong')
+        while u < 650:
+            for paldecklist in paldeck[u]:
+                print(paldecklist.text)
+                pallist.append(paldecklist.text)
+            u += 6
+        print(pallist)
+        file_path = 'PalList.json'
+        with open(file_path, 'w') as json_file:
+            json.dump(pallist, json_file)
 
 
 @app.get("/Pal='{Pal}'")
@@ -44,84 +73,84 @@ async def root(Pal: str):
         for kindling in PalSkillDesc[2]:
             kindling = kindling.text
             kindling = str(kindling)
-            kindling = kindling.replace('Kindling','')
+            kindling = kindling.replace('Kindling', '')
             kindling = kindling.replace(' ', '')
             if kindling == '':
                 kindling = '0'
         for watering in PalSkillDesc[3]:
             watering = watering.text
             watering = str(watering)
-            watering = watering.replace('Watering','')
+            watering = watering.replace('Watering', '')
             watering = watering.replace(' ', '')
             if watering == '':
                 watering = '0'
         for planting in PalSkillDesc[4]:
             planting = planting.text
             planting = str(planting)
-            planting = planting.replace('Planting','')
+            planting = planting.replace('Planting', '')
             planting = planting.replace(' ', '')
             if planting == '':
                 planting = '0'
         for electricity in PalSkillDesc[5]:
             electricity = electricity.text
             electricity = str(electricity)
-            electricity = electricity.replace('Generating Electricity','')
+            electricity = electricity.replace('Generating Electricity', '')
             electricity = electricity.replace(' ', '')
             if electricity == '':
                 electricity = '0'
         for handiwork in PalSkillDesc[6]:
             handiwork = handiwork.text
             handiwork = str(handiwork)
-            handiwork = handiwork.replace('Handiwork','')
+            handiwork = handiwork.replace('Handiwork', '')
             handiwork = handiwork.replace(' ', '')
             if handiwork == '':
                 handiwork = '0'
         for gathering in PalSkillDesc[7]:
             gathering = gathering.text
             gathering = str(gathering)
-            gathering = gathering.replace('Gathering','')
+            gathering = gathering.replace('Gathering', '')
             gathering = gathering.replace(' ', '')
             if gathering == '':
                 gathering = '0'
         for lumbering in PalSkillDesc[8]:
             lumbering = lumbering.text
             lumbering = str(lumbering)
-            lumbering = lumbering.replace('Lumbering','')
+            lumbering = lumbering.replace('Lumbering', '')
             lumbering = lumbering.replace(' ', '')
             if lumbering == '':
                 lumbering = '0'
         for mining in PalSkillDesc[9]:
             mining = mining.text
             mining = str(mining)
-            mining = mining.replace('Mining','')
+            mining = mining.replace('Mining', '')
             mining = mining.replace(' ', '')
             if mining == '':
                 mining = '0'
         for medicine in PalSkillDesc[10]:
             medicine = medicine.text
             medicine = str(medicine)
-            medicine = medicine.replace('Medicine Production','')
+            medicine = medicine.replace('Medicine Production', '')
             medicine = medicine.replace(' ', '')
             if medicine == '':
                 medicine = '0'
         for cooling in PalSkillDesc[11]:
             cooling = cooling.text
             cooling = str(cooling)
-            cooling = cooling.replace('Cooling','')
+            cooling = cooling.replace('Cooling', '')
             cooling = cooling.replace(' ', '')
             if cooling == '':
                 cooling = '0'
         for transporting in PalSkillDesc[12]:
             transporting = transporting.text
             transporting = str(transporting)
-            transporting = transporting.replace('Transporting','')
+            transporting = transporting.replace('Transporting', '')
             transporting = transporting.replace(' ', '')
             if transporting == '':
                 transporting = '0'
         for farming in PalSkillDesc[13]:
             farming = farming.text
             farming = str(farming)
-            farming = farming.replace('Farming','')
+            farming = farming.replace('Farming', '')
             farming = farming.replace(' ', '')
             if farming == '':
                 farming = '0'
@@ -189,24 +218,24 @@ async def root(Pal: str):
 
         return {
             "Paldeck": {
-                "Pal Name": f'{Pal}',
-                "Paldeck Number": f"{PalNumber.text}",
-                "Paldeck Entry": f'{DeckEntry.text}',
-                "Pal Appearance": f'{Palwyglond}'},
+                "PalName": f'{Pal}',
+                "PaldeckNumber": f"{PalNumber.text}",
+                "PaldeckEntry": f'{DeckEntry.text}',
+                "PalAppearance": f'{Palwyglond}'},
             "Elements": {
-                "Element 1": f'{palelement1}',
-                "Element 2": f'{palelement2}'},
+                "Element1": f'{palelement1}',
+                "Element2": f'{palelement2}'},
             "Drops": {
-                "Drop 1": f'{paldrop1}',
-                "Drop 2": f'{paldrop2}',
-                "Drop 3": f'{paldrop3}',
-                "Drop 4": f'{paldrop4}'
+                "Drop1": f'{paldrop1}',
+                "Drop2": f'{paldrop2}',
+                "Drop3": f'{paldrop3}',
+                "Drop4": f'{paldrop4}'
             },
-            "Food Need": f'{foodneed}',
-            "Partner Skill": {
-                "Partner Skill Name": f'{PartnerSkill.text}',
-                "Partner Skill Description": f'{PartnerSkillDesc.text}'},
-            "Work Suitability": {
+            "FoodNeed": f'{foodneed}',
+            "PartnerSkill": {
+                "PartnerSkillName": f'{PartnerSkill.text}',
+                "PartnerSkillDescription": f'{PartnerSkillDesc.text}'},
+            "WorkSuitability": {
                 'Kindling': f'{kindling}',
                 'Planting': f'{planting}',
                 'Handiwork': f'{handiwork}',
@@ -223,3 +252,11 @@ async def root(Pal: str):
             }
 
         }
+
+
+
+
+
+
+
+
