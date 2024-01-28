@@ -1,8 +1,7 @@
 import json
 
-from fastapi.encoders import jsonable_encoder
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 from routes.pal_info import pal_info
@@ -28,8 +27,8 @@ async def root():
 
 
 @app.get("/Pal='{Pal}'")
-async def root(Pal: str):
-    await pal_info(Pal)
+async def root(Pal: str, request: Request):
+    await pal_info(Pal, request)
 
 
 @app.get("/palIcon={Pal}")
