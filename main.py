@@ -1,5 +1,3 @@
-import json
-
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -16,9 +14,9 @@ app.add_middleware(
 )
 
 
-@app.get("/PalList")
+@app.get("/palList")
 async def root():
-    return FileResponse("./PalList.json")
+    return FileResponse("./PalList_serialized.json")
 
 
 @app.get("/randomPal")
@@ -26,9 +24,9 @@ async def root():
     return await RandomPal()
 
 
-@app.get("/Pal='{Pal}'")
+@app.get("/Pal={Pal}")
 async def root(Pal: str, request: Request):
-    await pal_info(Pal, request)
+    return await pal_info(Pal, request)
 
 
 @app.get("/palIcon={Pal}")
