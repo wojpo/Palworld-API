@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 
 async def pal_info(Pal: str, request: Request):
     url = f'https://palworld.fandom.com/wiki/{Pal}'
-    print(url)
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/58.0.3029.110 Safari/537.36'
@@ -22,7 +21,9 @@ async def pal_info(Pal: str, request: Request):
         PalEntryDeck = soup.find_all('div', class_='decktext')
         PalSkillDesc = soup.find_all('div',
                                      class_='pi-smart-data-value pi-data-value pi-font pi-item-spacing pi-border-color')
+        skills = soup.find_all('td')
 
+        skillin = []
         palelement1 = ''
         palelement2 = ''
         palelements = []
@@ -34,7 +35,15 @@ async def pal_info(Pal: str, request: Request):
         foodneed = 10
 
         base_url = str(request.base_url)
-        paliconurl = base_url + f"palIcon={Pal}"
+        paliconurl = base_url + f"PalIcon={Pal}"
+        for skillUwU in skills:
+            skillUwU = skillUwU.text
+            skillUwU = str(skillUwU)
+            skillUwU = skillUwU.replace('\\', '')
+            skillUwU = skillUwU.replace('\n', '')
+            skillUwU = skillUwU.replace(' ', '')
+            skillin.append(skillUwU)
+        print(skillin[5])
         for PartnerSkill in PalStats[4]:
             continue
         for PartnerSkillDesc in PalSkillDesc[1]:
@@ -209,16 +218,25 @@ async def pal_info(Pal: str, request: Request):
                 'Planting': f'{planting}',
                 'Handiwork': f'{handiwork}',
                 'Lumbering': f'{lumbering}',
-                'Medicine Production': f'{medicine}',
+                'MedicineProduction': f'{medicine}',
                 "Transporting": f'{transporting}',
                 "Watering": f'{watering}',
-                "Generating Electricity": f'{electricity}',
+                "GeneratingElectricity": f'{electricity}',
                 'Gathering': f'{gathering}',
                 'Mining': f'{mining}',
                 'Cooling': f'{cooling}',
                 'Farming': f'{farming}',
-                'paliconurl': f'{paliconurl}'
+
+            },
+            'paliconurl': f'{paliconurl}',
+            "Skills": {
+                'lvl1': f'{skillin[5]}',
+                'lvl7': f'{skillin[9]}',
+                'lvl15': f'{skillin[13]}',
+                'lvl22': f'{skillin[17]}',
+                'lvl30': f'{skillin[21]}',
+                'lvl40': f'{skillin[25]}',
+                'lvl50': f'{skillin[29]}',
             }
 
         }
-
