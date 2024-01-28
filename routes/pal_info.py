@@ -1,8 +1,8 @@
-from fastapi import requests
+from fastapi import requests, Request
 from bs4 import BeautifulSoup
 
 
-async def pal_info(Pal: str):
+async def pal_info(Pal: str,request:Request):
     global PalNumber, PalElement, PalDrops, paldrop1, paldrop2, PalAppereance, Palwyglond, DeckEntry, Palzahowanie, PartnerSkill, PartnerSkillDesc, kindling, planting, handiwork, lumbering, medicine, transporting, watering, electricity, gathering, mining, cooling, farming
     url = f'https://palworld.fandom.com/wiki/{Pal}'
     headers = {
@@ -31,6 +31,8 @@ async def pal_info(Pal: str):
         paldrops = []
         foodneed = 10
 
+        base_url = str(request.base_url)
+        paliconurl = base_url + f"palIcon={Pal}"
         for PartnerSkill in PalStats[4]:
             continue
         for PartnerSkillDesc in PalSkillDesc[1]:
@@ -212,8 +214,9 @@ async def pal_info(Pal: str):
                 'Gathering': f'{gathering}',
                 'Mining': f'{mining}',
                 'Cooling': f'{cooling}',
-                'Farming': f'{farming}'
-
+                'Farming': f'{farming}',
+                'paliconurl': f'{paliconurl}'
             }
 
         }
+
