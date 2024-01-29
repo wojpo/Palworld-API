@@ -1,6 +1,7 @@
 from fastapi import Request
 import requests
 from bs4 import BeautifulSoup
+from utils.OpenCV import get_dominant_color
 
 
 async def pal_info(Pal: str, request: Request):
@@ -36,6 +37,9 @@ async def pal_info(Pal: str, request: Request):
 
         base_url = str(request.base_url)
         paliconurl = base_url + f"PalIcon={Pal}"
+        image_path = f"static/{Pal}_menu.webp"
+        color = get_dominant_color(image_path)
+
         for skillUwU in skills:
             skillUwU = skillUwU.text
             skillUwU = str(skillUwU)
@@ -43,7 +47,7 @@ async def pal_info(Pal: str, request: Request):
             skillUwU = skillUwU.replace('\n', '')
             skillUwU = skillUwU.replace(' ', '')
             skillin.append(skillUwU)
-        print(skillin[5])
+
         for PartnerSkill in PalStats[4]:
             continue
         for PartnerSkillDesc in PalSkillDesc[1]:
@@ -237,6 +241,10 @@ async def pal_info(Pal: str, request: Request):
                 'lvl30': f'{skillin[21]}',
                 'lvl40': f'{skillin[25]}',
                 'lvl50': f'{skillin[29]}',
-            }
+            },
+            "palColor": f"{color}"
+
 
         }
+
+    #Kocham Miauczacego Wiki Popa
