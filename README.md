@@ -3,7 +3,7 @@
     https://github.com/wikipop/paldle
 
 ## ℹ Endpoints
-- Pal={palName}
+- /Pal={palName}
 
         Returns data about specified pal:
         - Pal name
