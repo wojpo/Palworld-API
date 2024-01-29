@@ -1,7 +1,7 @@
 from fastapi import Request
 import requests
 from bs4 import BeautifulSoup
-from utils.OpenCV import get_dominant_color
+from utils.checkingColors import get_dominant_color
 
 
 async def pal_info(Pal: str, request: Request):
