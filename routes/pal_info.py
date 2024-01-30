@@ -36,7 +36,7 @@ async def pal_info(Pal: str, request: Request):
         foodneed = 10
 
         base_url = str(request.base_url)
-        paliconurl = base_url + f"PalIcon={Pal}"
+        paliconurl = base_url + f"palIcon={Pal}"
         image_path = f"static/{Pal}_menu.webp"
         color = get_dominant_color(image_path)
 
